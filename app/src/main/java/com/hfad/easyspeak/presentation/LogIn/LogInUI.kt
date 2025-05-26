@@ -53,7 +53,6 @@ fun LogInUI(navController: NavController) {
     val viewModel: LogInViewModel = viewModel()
     val loginState by viewModel.loginState.collectAsState()
 
-    // Обработка состояний логина
     LaunchedEffect(loginState) {
         when (loginState) {
             is LogInViewModel.LoginState.Success -> {
