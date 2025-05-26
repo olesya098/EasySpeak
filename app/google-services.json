@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1086110322281",
+    "project_id": "easyspeak-82929",
+    "storage_bucket": "easyspeak-82929.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086110322281:android:4f80cfce15f7460d761cf8",
+        "android_client_info": {
+          "package_name": "com.hfad.easyspeak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyd5tvpqtK5id_hKTcyzSP-Yj74o-YP-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086110322281:android:2529dd96bd4fd990761cf8",
+        "android_client_info": {
+          "package_name": "com.hfad.kotlincomposebdfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyd5tvpqtK5id_hKTcyzSP-Yj74o-YP-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

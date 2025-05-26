@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">EasySpeak</string>
+    <string name="pleaseregistrate">Before studying , please register or log in to your account.</string>
+    <string name="next">Next</string>
+    <string name="login">LogIn</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="not_you_member">Is this your first time?</string>
+    <string name="signupTitle">SignUp</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="join_now">Join now and start learning</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="first_name">First Name</string>
+    <string name="your_first_name">Your First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="your_last_name">Your Last Name</string>
+    <string name="choose_a_password">Create a Password</string>
+    <string name="confirm_password">Repeat the password</string>
+    <string name="i">"I "</string>
+    <string name="have_made_myself_acquainted_with_the_rules">"have made myself acquainted with the Rules "</string>
+    <string name="and_accept_all_its_provisions">and accept all its provisions,</string>
+    <string name="error">Error</string>
+</resources>

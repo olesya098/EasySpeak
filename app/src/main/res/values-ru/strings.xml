@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">EasySpeak</string>
+    <string name="pleaseregistrate">Перед началом обучения, пожалуйста, зарегистрируйтесь или войдите в свою учетную запись.</string>
+    <string name="next">Далее</string>
+    <string name="login">Войти</string>
+    <string name="email_address">Email адрес</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="not_you_member">Вы впервые?</string>
+    <string name="signupTitle">Регистрация</string>
+    <string name="already_registered">Зарегистрированы?</string>
+    <string name="join_now">Присоединяйтесь сейчас и начните обучение</string>
+    <string name="create_an_account">Создайте Аккаунт</string>
+    <string name="first_name">Имя</string>
+    <string name="your_first_name">Ваше Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="your_last_name">Ваша Фамилия</string>
+    <string name="choose_a_password">Создайте Пароль</string>
+    <string name="confirm_password">Повторите Пароль</string>
+    <string name="i">"Я "</string>
+    <string name="have_made_myself_acquainted_with_the_rules">"ознакомился с Правилами "</string>
+    <string name="and_accept_all_its_provisions">и принял все его положения,</string>
+</resources>
