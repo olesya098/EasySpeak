@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,7 +52,7 @@ fun TextAndTextField(
                 .background(Color.Transparent)
                 .border(
                     width = 1.dp,
-                    color = if (isFocused) blue else Color.Black.copy(alpha = 0.5f),
+                    color = if (isFocused) blue else MaterialTheme.colorScheme.inversePrimary,
                     shape = RoundedCornerShape(16.dp)
                 ),
             value = value,
@@ -61,8 +62,8 @@ fun TextAndTextField(
                 focusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
-                focusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
-                unfocusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
+                focusedTextColor = if(isSystemInDarkTheme()) Color.White else MaterialTheme.colorScheme.surfaceContainer,
+                unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
                 focusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,

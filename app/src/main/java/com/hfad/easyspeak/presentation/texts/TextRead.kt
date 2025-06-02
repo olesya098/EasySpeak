@@ -2,6 +2,7 @@ package com.hfad.easyspeak.presentation.texts
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -59,7 +60,7 @@ fun TextRead(
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Light,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black,
+                    color = if (isSystemInDarkTheme()) Color.White else Color.White,
                     modifier = Modifier.padding(16.dp)
                 )
             }

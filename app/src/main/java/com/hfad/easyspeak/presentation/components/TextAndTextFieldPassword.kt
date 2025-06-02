@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.easyspeak.R
 import com.hfad.easyspeak.ui.theme.blue
-
 @Composable
 fun TextAndTextFieldPassword(
     title: String,
@@ -58,7 +58,7 @@ fun TextAndTextFieldPassword(
                 .background(Color.Transparent)
                 .border(
                     width = 1.dp,
-                    color = if (isFocused) blue else Color.Black.copy(alpha = 0.5f),
+                    color = if (isFocused) blue else MaterialTheme.colorScheme.inversePrimary,
                     shape = RoundedCornerShape(16.dp)
                 ),
             value = value,
@@ -68,8 +68,8 @@ fun TextAndTextFieldPassword(
                 focusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
-                focusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
-                unfocusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
+                focusedTextColor = if(isSystemInDarkTheme()) Color.White else MaterialTheme.colorScheme.surfaceContainer,
+                unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
                 focusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -91,13 +91,11 @@ fun TextAndTextFieldPassword(
                         if (visible) R.drawable.eye else R.drawable.eye_off
                     ),
                     contentDescription = if (visible) "Hide password" else "Show password",
-                    modifier = Modifier.clickable {
-                        onVisibilityChange(!visible)
-                    }
+                    modifier = Modifier
+                        .clickable { onVisibilityChange(!visible) }
                         .size(40.dp)
                         .padding(end = 10.dp),
-                    tint = if (isFocused) blue else Color.Black.copy(alpha = 0.5f)
-
+                    tint = if (isFocused) blue else MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
             interactionSource = interactionSource

@@ -152,7 +152,7 @@ fun ProfilUI(navController: NavController) {
                     Text(
                         text = stringResource(R.string.information),
                         style = MaterialTheme.typography.labelLarge,
-                        color = Color.Black,
+                        color = Color.Gray,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                     )
