@@ -102,7 +102,7 @@ fun CustomScaffold(
                         fontSize = 17.sp,
                         modifier = Modifier
                             .padding(end = 10.dp)
-                            .clickable { onText2Click() }, // Добавляем возможность нажатия
+                            .clickable { onText2Click() },
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Medium,
                         style = MaterialTheme.typography.bodySmall,

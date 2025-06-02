@@ -21,4 +21,22 @@
     <string name="have_made_myself_acquainted_with_the_rules">"have made myself acquainted with the Rules "</string>
     <string name="and_accept_all_its_provisions">and accept all its provisions,</string>
     <string name="error">Error</string>
+    <string name="your_progress">Your progress</string>
+    <string name="correct_tests">Correct tests</string>
+    <string name="time_in_the_app">Time in the app</string>
+    <string name="available_exercises">Available exercises</string>
+    <string name="are_you_ready_for_learning_today">Are you ready for learning today?</string>
+    <string name="repeat">Repeat</string>
+    <string name="exit">Exit</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="check_again">Check again</string>
+    <string name="evertexst">Choose a different text</string>
+    <string name="check">Check</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_an_account">Delete an account</string>
+    <string name="change_your_image">Change your image</string>
+    <string name="information">Information</string>
+    <string name="your_answer">Your answer:</string>
+    <string name="type_the_word_here">Type the word here</string>
+    <string name="decipher_the_word_using_all_the_letters">Decipher the word using all the letters</string>
 </resources>

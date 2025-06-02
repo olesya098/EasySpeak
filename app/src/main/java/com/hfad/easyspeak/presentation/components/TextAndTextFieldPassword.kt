@@ -1,6 +1,10 @@
 package com.hfad.easyspeak.presentation.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfad.easyspeak.R
+import com.hfad.easyspeak.ui.theme.blue
 
 @Composable
 fun TextAndTextFieldPassword(
@@ -33,6 +40,8 @@ fun TextAndTextFieldPassword(
     visible: Boolean,
     onVisibilityChange: (Boolean) -> Unit
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
     Column {
         Text(
             title,
@@ -45,7 +54,13 @@ fun TextAndTextFieldPassword(
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp),
+                .height(56.dp)
+                .background(Color.Transparent)
+                .border(
+                    width = 1.dp,
+                    color = if (isFocused) blue else Color.Black.copy(alpha = 0.5f),
+                    shape = RoundedCornerShape(16.dp)
+                ),
             value = value,
             onValueChange = { onvalChange(it) },
             colors = TextFieldDefaults.colors(
@@ -55,9 +70,10 @@ fun TextAndTextFieldPassword(
                 errorIndicatorColor = Color.Transparent,
                 focusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
                 unfocusedTextColor = MaterialTheme.colorScheme.surfaceContainer,
-                focusedContainerColor = MaterialTheme.colorScheme.inverseSurface,
-                disabledContainerColor = MaterialTheme.colorScheme.inverseSurface,
-                unfocusedContainerColor = MaterialTheme.colorScheme.inverseSurface,
+                focusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                cursorColor = blue
             ),
             shape = RoundedCornerShape(16.dp),
             singleLine = true,
@@ -79,10 +95,12 @@ fun TextAndTextFieldPassword(
                         onVisibilityChange(!visible)
                     }
                         .size(40.dp)
-                        .padding(end = 10.dp)
+                        .padding(end = 10.dp),
+                    tint = if (isFocused) blue else Color.Black.copy(alpha = 0.5f)
 
                 )
-            }
+            },
+            interactionSource = interactionSource
         )
         Spacer(modifier = Modifier.height(15.dp))
     }

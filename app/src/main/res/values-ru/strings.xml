@@ -20,4 +20,23 @@
     <string name="i">"Я "</string>
     <string name="have_made_myself_acquainted_with_the_rules">"ознакомился с Правилами "</string>
     <string name="and_accept_all_its_provisions">и принял все его положения,</string>
+    <string name="correct_tests">Верные тесты</string>
+    <string name="error">Ошибка</string>
+    <string name="your_progress">Ваш прогресс</string>
+    <string name="time_in_the_app">Время проведённое в приложении</string>
+    <string name="available_exercises">Доступные упражнения</string>
+    <string name="are_you_ready_for_learning_today">Готовы ли вы к обучению сегодня?</string>
+    <string name="repeat">Повторить</string>
+    <string name="exit">Выйти</string>
+    <string name="no_internet_connection">Нет интернет соединения</string>
+    <string name="check_again">Проверить еще раз</string>
+    <string name="evertexst">Выбрать другой текст</string>
+    <string name="check">Проверить</string>
+    <string name="log_out">Выйти из системы</string>
+    <string name="delete_an_account">Удалить аккаунт</string>
+    <string name="change_your_image">Изменить изображение</string>
+    <string name="information">Информация</string>
+    <string name="your_answer">Ваш ответ:</string>
+    <string name="type_the_word_here">Введите слово</string>
+    <string name="decipher_the_word_using_all_the_letters">Расшифруйте слово, используя все буквы</string>
 </resources>

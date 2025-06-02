@@ -1,17 +1,24 @@
 package com.hfad.easyspeak.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.hfad.easyspeak.presentation.LogIn.LogInUI
-import com.hfad.easyspeak.presentation.MainScreen.MainScreenUI
-import com.hfad.easyspeak.presentation.NoInternetConection.NoInternetConectionUI
-import com.hfad.easyspeak.presentation.Onboarding.VideoPlayerPreview
-import com.hfad.easyspeak.presentation.PleaseRegistration.PleaseRegistration
-import com.hfad.easyspeak.presentation.SignUp.SignUpUI
-import com.hfad.easyspeak.presentation.SignUp2.SignUpUI2
-import com.hfad.easyspeak.presentation.SplashScreen.SplashScreenUI
+import androidx.navigation.navArgument
+import com.hfad.easyspeak.presentation.exercise_word.ExerciseWord
+import com.hfad.easyspeak.presentation.login.LogInUI
+import com.hfad.easyspeak.presentation.mainscreen.MainScreenUI
+import com.hfad.easyspeak.presentation.nointernetconnection.NoInternetConectionUI
+import com.hfad.easyspeak.presentation.onboarding.VideoPlayerPreview
+import com.hfad.easyspeak.presentation.pleaseregistration.PleaseRegistration
+import com.hfad.easyspeak.presentation.profil.ProfilUI
+import com.hfad.easyspeak.presentation.signup.SignUpUI
+import com.hfad.easyspeak.presentation.signup2.SignUpUI2
+import com.hfad.easyspeak.presentation.splashscreen.SplashScreenUI
+import com.hfad.easyspeak.presentation.texts.TextRead
+import com.hfad.easyspeak.presentation.texts.TextsUI
+import com.hfad.easyspeak.presentation.wordpractice.WordpracticeUI
 
 @Composable
 fun Navigation(
@@ -56,6 +63,31 @@ fun Navigation(
             }
             composable(NavigationRoutes.VideoPlayerPreview.route) {
                 VideoPlayerPreview(navController)
+            }
+            composable(NavigationRoutes.WordpracticeUI.route) {
+                WordpracticeUI(navController)
+            }
+            composable(NavigationRoutes.TextsUI.route) {
+                TextsUI(navController)
+            }
+            composable(
+                route = NavigationRoutes.TextRead.route,
+                arguments = listOf(
+                    navArgument("title") { type = NavType.StringType },
+                    navArgument("text") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                TextRead(
+                    navController = navController,
+                    title = backStackEntry.arguments?.getString("title"),
+                    text = backStackEntry.arguments?.getString("text")
+                )
+            }
+            composable(NavigationRoutes.ProfilUI.route) {
+                ProfilUI(navController)
+            }
+            composable(NavigationRoutes.Exercise_Word.route) {
+                ExerciseWord(navController)
             }
         }
     }

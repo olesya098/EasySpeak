@@ -18,6 +18,9 @@ val blue = Color(0xFF5B7BFE)
 val orange = Color(0xFFF76400)
 
 val green = Color(0xFF5BA890)
+val purple = Color(0xFFA500F7)
+val Right = Color(0xFF328D00)
+
 
 val pink = Color(0xFFD6185D)
 
@@ -28,6 +31,7 @@ val beige = Color(0xFFFFF6EB)
 val blueLight = Color(0xFFDBF6FF)
 
 val grayDark = Color(0xFF656872)
+val gray = Color(0xC3FFFFFF)
 
 val white = Color(0xFFFFFFFF)
 

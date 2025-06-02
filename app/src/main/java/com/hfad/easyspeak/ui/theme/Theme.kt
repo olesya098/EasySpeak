@@ -39,7 +39,8 @@ private val DarkColorScheme = darkColorScheme(
     onSecondaryContainer = green,//зелёный
     surfaceContainerHigh = Color(0xFFFFFFFF), //текст
     tertiary = Color(0xFF1B2336), //для фона на странице выбора фото
-    tertiaryContainer = bigText,//текст карточки wordpractice
+    tertiaryContainer = gray,//текст карточки wordpractice
+    onTertiary = purple
 
 )
 
@@ -67,7 +68,9 @@ private val LightColorScheme = lightColorScheme(
     onSecondaryContainer = green,//зелёный
     surfaceContainerHigh = Color(0xFF000000), //текст
     tertiary = Color(0xFF1B2336), //для фона на странице выбора фото
-    tertiaryContainer = bigText,//текст карточки wordpractice
+    tertiaryContainer = gray,//текст карточки wordpractice
+    onTertiary = purple
+
 
 )
 val gradient = Brush.linearGradient(
