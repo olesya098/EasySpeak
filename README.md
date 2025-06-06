@@ -55,5 +55,11 @@ EasySpeak – это мобильное приложение для изучен
 > Приложение доступно по ссылке и по QR коду.
 > Подробнее про установку читайте в руководстве пользователя
 
+[Ссылка для скачивания приложения]([https://example.com](https://disk.yandex.ru/d/Jkk5GYDbLHH2Vg))  
+
+QR Код для скачивания
+
+![qr (5)](https://github.com/user-attachments/assets/19772d7b-8286-46a9-bad6-6dfcc6f1ca89)
+
 
 
