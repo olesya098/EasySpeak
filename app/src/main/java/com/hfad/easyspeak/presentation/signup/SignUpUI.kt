@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,17 +34,28 @@ import com.google.firebase.ktx.Firebase
 import com.hfad.easyspeak.R
 import com.hfad.easyspeak.presentation.components.CustomScaffold
 import com.hfad.easyspeak.presentation.components.TextAndTextField
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 
 @Composable
 fun SignUpUI(navController: NavController) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(true) }
 
     // Инициализация Firebase
     val auth: FirebaseAuth = Firebase.auth
     val database: DatabaseReference = Firebase.database.reference
 
+    LaunchedEffect(Unit) {
+        delay(1000)
+        isLoading = false
+    }
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
+    }
     CustomScaffold(
         title = stringResource(R.string.signupTitle),
         navigationIcon = {

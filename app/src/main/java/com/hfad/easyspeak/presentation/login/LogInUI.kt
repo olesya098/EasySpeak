@@ -33,13 +33,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.hfad.easyspeak.R
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.components.CustomScaffold
 import com.hfad.easyspeak.presentation.components.TextAndTextField
 import com.hfad.easyspeak.presentation.components.TextAndTextFieldPassword
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,11 +54,24 @@ fun LogInUI(navController: NavController) {
     var isPasswordVisible by remember { mutableStateOf(false) }
     var showErrorDialog by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(true) }
 
-    val viewModel: LogInViewModel = viewModel()
+    val auth = FirebaseAuth.getInstance()
+
+    // Создаем фабрику для ViewModel
+    val viewModel: LogInViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return LogInViewModel(auth) as T
+            }
+        }
+    )
     val loginState by viewModel.loginState.collectAsState()
 
     LaunchedEffect(loginState) {
+        delay(1000)
+        isLoading = false
         when (loginState) {
             is LogInViewModel.LoginState.Success -> {
                 navController.navigate(NavigationRoutes.MainScreenUI.route) {
@@ -68,6 +86,10 @@ fun LogInUI(navController: NavController) {
 
             else -> {}
         }
+    }
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
     }
 
     CustomScaffold(

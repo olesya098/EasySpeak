@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.hfad.easyspeak.R
 import com.hfad.easyspeak.model.TimeTracker
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.components.Cards
 import com.hfad.easyspeak.presentation.components.CardsExersize
 import com.hfad.easyspeak.presentation.components.CustomScaffoldMainScreen
@@ -37,49 +39,32 @@ import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
 import kotlinx.coroutines.delay
 
 @Composable
-fun MainScreenUI(navController: NavController) {
-    var userName by remember { mutableStateOf("") }
-    var sessionTimeText by remember { mutableStateOf("0 минут") }
-    var totalTimeText by remember { mutableStateOf("0 минут") }
-
-    val context = LocalContext.current
-    val activity = context as Activity
-
-    val auth = Firebase.auth
-    val database = Firebase.database.reference
+fun MainScreenUI(
+    navController: NavController,
+    mainScreenViewModel: MainScreenViewModel,
+    totalTimeText: String
+) {
+    var isLoading by remember { mutableStateOf(true) }
+    val currentUser = mainScreenViewModel.currentUser.collectAsState()
+    val user = mainScreenViewModel.user.collectAsState()
 
     LaunchedEffect(Unit) {
-        val user = auth.currentUser
-        user?.let {
-            database.child("users").child(it.uid).get().addOnSuccessListener { snapshot ->
-                val firstName = snapshot.child("firstName").value as? String ?: ""
-                val lastName = snapshot.child("lastName").value as? String ?: ""
-                userName = if (firstName.isNotEmpty() || lastName.isNotEmpty()) {
-                    "$firstName $lastName".trim()
-                } else {
-                    "User"
-                }
-            }
-        }
-
-        val timeTracker = TimeTracker(activity)
-        timeTracker.startSession()
-
-        try {
-            while (true) {
-                sessionTimeText = timeTracker.getCurrentSessionTimeFormatted()
-                totalTimeText = timeTracker.getTotalTimeTodayFormatted()
-                delay(1000)
-            }
-        } finally {
-            timeTracker.endSession()
+        delay(1000)
+        isLoading = false
+        currentUser.value?.let {
+            mainScreenViewModel.getUser(it)
         }
     }
 
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
+    }
     CustomScaffoldMainScreen(
         onProfilClick = { navController.navigate(NavigationRoutes.ProfilUI.route) },
         text = stringResource(R.string.are_you_ready_for_learning_today),
-        name = if (userName.isNotEmpty()) "Hello, $userName" else "Hello",
+        name = if (!user.value?.firstName.isNullOrEmpty() && !user.value?.lastName.isNullOrEmpty())
+            "Hello, ${user.value?.firstName} ${user.value?.lastName} " else "Hello",
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -105,7 +90,7 @@ fun MainScreenUI(navController: NavController) {
                 Cards(
                     text = stringResource(R.string.time_in_the_app),
                     image = R.drawable.clock,
-                    number = totalTimeText // Отображаем общее время за день
+                    number = totalTimeText // Используем переданное значение
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -121,10 +106,13 @@ fun MainScreenUI(navController: NavController) {
 
                 // Список упражнений в виде троек (название, иконка, цвет)
                 val exercises = listOf(
-                    Triple("Animals", R.drawable.animal, MaterialTheme.colorScheme.surface),
                     Triple("Word practice", R.drawable.pencil, MaterialTheme.colorScheme.error),
                     Triple("Audition", R.drawable.audition, MaterialTheme.colorScheme.outline),
-                    Triple("Guess the word", R.drawable.guesstheword, MaterialTheme.colorScheme.onSecondaryContainer),
+                    Triple(
+                        "Guess the word",
+                        R.drawable.guesstheword,
+                        MaterialTheme.colorScheme.onSecondaryContainer
+                    ),
                     Triple("Texts", R.drawable.text, MaterialTheme.colorScheme.onTertiary)
                 )
 
@@ -145,10 +133,15 @@ fun MainScreenUI(navController: NavController) {
                                     onClick = {
                                         // Обработка нажатия для каждой карточки
                                         when (name) {
-                                            "Animals" -> navController.navigate("animals_screen")
-                                            "Word practice" -> navController.navigate(NavigationRoutes.WordpracticeUI.route)
-                                            "Audition" -> navController.navigate("audition_screen")
-                                            "Guess the word" -> navController.navigate(NavigationRoutes.Exercise_Word.route)
+                                            "Word practice" -> navController.navigate(
+                                                NavigationRoutes.WordpracticeUI.route
+                                            )
+
+                                            "Audition" -> navController.navigate(NavigationRoutes.Exercise_ListeningUI.route)
+                                            "Guess the word" -> navController.navigate(
+                                                NavigationRoutes.Exercise_Word.route
+                                            )
+
                                             "Texts" -> navController.navigate(NavigationRoutes.TextsUI.route)
                                         }
                                     }

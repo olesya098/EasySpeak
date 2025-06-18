@@ -19,12 +19,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,17 +42,22 @@ import com.google.firebase.ktx.Firebase
 import com.hfad.easyspeak.R
 import com.hfad.easyspeak.model.TextModel
 import com.hfad.easyspeak.presentation.components.TextComponent
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextsUI(navController: NavController) {
     val database = Firebase.database
     val textsRef = database.getReference("texts")
+    var isLoading by remember { mutableStateOf(true) }
 
     val (texts, setTexts) = remember { mutableStateOf<Map<String, List<TextModel>>>(emptyMap()) }
 
     LaunchedEffect(Unit) {
+        delay(1000)
+        isLoading = false
         textsRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val loadedTexts = mutableMapOf<String, List<TextModel>>()
@@ -75,7 +83,10 @@ fun TextsUI(navController: NavController) {
             }
         })
     }
-
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
+    }
     Scaffold(
         topBar = {
             TopAppBar(

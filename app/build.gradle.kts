@@ -44,6 +44,10 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
 
+    implementation ("androidx.glance:glance-appwidget:1.0.0-alpha04")
+    implementation ("androidx.glance:glance-wear-tiles:1.0.0-alpha04")
+    implementation ("androidx.glance:glance-appwidget:1.0.0")
+    implementation ("androidx.glance:glance-material:1.0.0")
 
     implementation (libs.androidx.media3.exoplayer)
     implementation (libs.androidx.media3.ui)
@@ -54,7 +58,7 @@ dependencies {
     // Для Material 3
     implementation (libs.material3)
     implementation (libs.androidx.animation.v150)
-
+    implementation(libs.coil.compose)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -21,7 +21,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.hfad.easyspeak.R
 import com.hfad.easyspeak.presentation.components.*
+import com.hfad.easyspeak.presentation.login.LogInViewModel
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,6 +64,8 @@ fun ExerciseWord(navController: NavController) {
     }
 
     LaunchedEffect(Unit) {
+        delay(1000)
+        isLoading = false
         wordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
@@ -102,6 +106,10 @@ fun ExerciseWord(navController: NavController) {
                 isLoading = false
             }
         })
+    }
+    if (isLoading) {
+        com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
     }
 
     fun checkAnswer() {
@@ -166,7 +174,7 @@ fun ExerciseWord(navController: NavController) {
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
                 when {
-                    isLoading -> LoadingScreen()
+                    isLoading -> LoadingScreen() // Используем общий компонент
                     errorMessage != null -> ErrorScreen(error = errorMessage)
                     selectedWords.isEmpty() -> EmptyScreen()
                     else -> WordExerciseContent(
@@ -181,10 +189,12 @@ fun ExerciseWord(navController: NavController) {
         }
     )
 
+
     if (showBottomSheet.value) {
         ModalBottomSheet(
             onDismissRequest = { showBottomSheet.value = false },
             sheetState = sheetState,
+            dragHandle = null,
             containerColor = Color.White,
             scrimColor = Color.Black.copy(alpha = 0.5f),
             modifier = Modifier.fillMaxHeight(0.7f)

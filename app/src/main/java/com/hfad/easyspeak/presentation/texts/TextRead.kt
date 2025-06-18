@@ -60,7 +60,7 @@ fun TextRead(
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Light,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (isSystemInDarkTheme()) Color.White else Color.White,
+                    color = if (isSystemInDarkTheme()) Color.White else Color.Black,
                     modifier = Modifier.padding(16.dp)
                 )
             }

@@ -23,7 +23,7 @@
     <string name="correct_tests">Верные тесты</string>
     <string name="error">Ошибка</string>
     <string name="your_progress">Ваш прогресс</string>
-    <string name="time_in_the_app">Время проведённое в приложении</string>
+    <string name="time_in_the_app">Время в приложении</string>
     <string name="available_exercises">Доступные упражнения</string>
     <string name="are_you_ready_for_learning_today">Готовы ли вы к обучению сегодня?</string>
     <string name="repeat">Повторить</string>
@@ -39,4 +39,5 @@
     <string name="your_answer">Ваш ответ:</string>
     <string name="type_the_word_here">Введите слово</string>
     <string name="decipher_the_word_using_all_the_letters">Расшифруйте слово, используя все буквы</string>
+    <string name="loading_your_data">Загрузка ваших данных...</string>
 </resources>

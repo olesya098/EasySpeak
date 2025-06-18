@@ -1,6 +1,5 @@
 package com.hfad.easyspeak.presentation.profil
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,8 +20,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.hfad.easyspeak.R
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.components.*
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 
 @Composable
 fun ProfilUI(navController: NavController) {
@@ -31,11 +32,14 @@ fun ProfilUI(navController: NavController) {
     var showPasswordDialog by remember { mutableStateOf(false) }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(true) }
 
     val auth = Firebase.auth
     val database = Firebase.database.reference
 
     LaunchedEffect(Unit) {
+        delay(1000)
+        isLoading = false
         val user = auth.currentUser
         user?.let {
             userEmail = user.email ?: ""
@@ -49,6 +53,10 @@ fun ProfilUI(navController: NavController) {
                 }
             }
         }
+    }
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
     }
 
     if (showPasswordDialog) {

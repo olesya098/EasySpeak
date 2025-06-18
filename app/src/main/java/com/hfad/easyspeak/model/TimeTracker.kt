@@ -1,18 +1,17 @@
 package com.hfad.easyspeak.model
 
-
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import java.util.*
 
-class TimeTracker(private val activity: Activity) {
-    private val prefs: SharedPreferences = activity.getSharedPreferences("TimeTrackerPrefs", Context.MODE_PRIVATE)
+class TimeTracker(private val context: Context) {
+    private val prefs: SharedPreferences = context.getSharedPreferences("TimeTrackerPrefs", Context.MODE_PRIVATE)
     private var sessionStartTime: Long = 0
     private var totalTimeToday: Long = 0
 
     fun startSession() {
-        sessionStartTime = System.currentTimeMillis()
+        // Загружаем сохраненное общее время за сегодня перед началом новой сессии
+        totalTimeToday = prefs.getLong("total_time_today", 0)
 
         // Проверяем, не изменился ли день
         val lastDate = prefs.getLong("last_date", 0)
@@ -25,16 +24,18 @@ class TimeTracker(private val activity: Activity) {
 
         if (lastDate != today) {
             // Новый день - сбрасываем счетчик
-            prefs.edit().putLong("total_time_today", 0).apply()
-            prefs.edit().putLong("last_date", today).apply()
+            totalTimeToday = 0
+            prefs.edit()
+                .putLong("total_time_today", 0)
+                .putLong("last_date", today)
+                .apply()
         }
 
-        // Загружаем сохраненное общее время за сегодня
-        totalTimeToday = prefs.getLong("total_time_today", 0)
+        sessionStartTime = System.currentTimeMillis()
     }
 
     fun getCurrentSessionTime(): Long {
-        return System.currentTimeMillis() - sessionStartTime
+        return if (sessionStartTime > 0) System.currentTimeMillis() - sessionStartTime else 0
     }
 
     fun getCurrentSessionTimeFormatted(): String {
@@ -66,7 +67,11 @@ class TimeTracker(private val activity: Activity) {
     }
 
     fun endSession() {
-        totalTimeToday += getCurrentSessionTime()
-        prefs.edit().putLong("total_time_today", totalTimeToday).apply()
+        val sessionTime = getCurrentSessionTime()
+        if (sessionTime > 0) {
+            totalTimeToday += sessionTime
+            prefs.edit().putLong("total_time_today", totalTimeToday).apply()
+        }
+        sessionStartTime = 0
     }
 }

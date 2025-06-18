@@ -13,6 +13,7 @@ sealed class NavigationRoutes(val route: String) {
     object TextsUI: NavigationRoutes("TextsUI")
     object ProfilUI: NavigationRoutes("ProfilUI")
     object Exercise_Word: NavigationRoutes("Exercise_Word")
+    object Exercise_ListeningUI: NavigationRoutes("Exercise_ListeningUI")
     object TextRead : NavigationRoutes("TextRead/{title}/{text}") {
         fun createRoute(title: String, text: String) = "TextRead/${encode(title)}/${encode(text)}"
 

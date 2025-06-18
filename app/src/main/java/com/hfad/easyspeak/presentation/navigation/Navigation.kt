@@ -1,14 +1,17 @@
 package com.hfad.easyspeak.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.hfad.easyspeak.presentation.exerciseListening.Exercise_ListeningUI
 import com.hfad.easyspeak.presentation.exercise_word.ExerciseWord
 import com.hfad.easyspeak.presentation.login.LogInUI
 import com.hfad.easyspeak.presentation.mainscreen.MainScreenUI
+import com.hfad.easyspeak.presentation.mainscreen.MainScreenViewModel
 import com.hfad.easyspeak.presentation.nointernetconnection.NoInternetConectionUI
 import com.hfad.easyspeak.presentation.onboarding.VideoPlayerPreview
 import com.hfad.easyspeak.presentation.pleaseregistration.PleaseRegistration
@@ -23,9 +26,11 @@ import com.hfad.easyspeak.presentation.wordpractice.WordpracticeUI
 @Composable
 fun Navigation(
     isOnline: Boolean,
+    totalTimeText: String,
     onCheckConnection: () -> Unit
 ) {
     val navController = rememberNavController()
+    val mainScreenViewModel = viewModel<MainScreenViewModel>()
 
     if (!isOnline) {
         NoInternetConectionUI(
@@ -38,7 +43,7 @@ fun Navigation(
             startDestination = NavigationRoutes.SplashScreenUI.route
         ) {
             composable(NavigationRoutes.SplashScreenUI.route) {
-                SplashScreenUI(navController)
+                SplashScreenUI(navController, mainScreenViewModel)
             }
             composable(NavigationRoutes.NoInternetConectionUI.route) {
                 NoInternetConectionUI(
@@ -59,7 +64,11 @@ fun Navigation(
                 SignUpUI2(navController)
             }
             composable(NavigationRoutes.MainScreenUI.route) {
-                MainScreenUI(navController)
+                MainScreenUI(
+                    navController = navController,
+                    mainScreenViewModel = mainScreenViewModel,
+                    totalTimeText = totalTimeText
+                )
             }
             composable(NavigationRoutes.VideoPlayerPreview.route) {
                 VideoPlayerPreview(navController)
@@ -69,6 +78,9 @@ fun Navigation(
             }
             composable(NavigationRoutes.TextsUI.route) {
                 TextsUI(navController)
+            }
+            composable(NavigationRoutes.Exercise_ListeningUI.route) {
+                Exercise_ListeningUI(navController)
             }
             composable(
                 route = NavigationRoutes.TextRead.route,

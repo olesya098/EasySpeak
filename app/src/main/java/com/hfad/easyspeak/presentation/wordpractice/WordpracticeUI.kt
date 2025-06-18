@@ -18,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +39,9 @@ import com.hfad.easyspeak.model.WordpractiseModel
 import com.hfad.easyspeak.presentation.components.CardsAnswers
 import com.hfad.easyspeak.presentation.components.CustomScaffoldTests
 import com.hfad.easyspeak.presentation.components.ModalBottomSheetContent
+import com.hfad.easyspeak.presentation.loadingscreen.LoadingScreen
 import com.hfad.easyspeak.presentation.navigation.NavigationRoutes
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,12 +62,14 @@ fun WordpracticeUI(navController: NavController) {
     val (wrongAnswersCount, setWrongAnswersCount) = remember { mutableStateOf(0) } // Счетчик неправильных ответов
     val (testCompleted, setTestCompleted) = remember { mutableStateOf(false) } // Флаг завершения теста
     val (selectedWords, setSelectedWords) = remember { mutableStateOf<List<WordPair>>(emptyList()) } // Список выбранных слов для теста
-
+    var isLoading by remember { mutableStateOf(true) }
     val showBottomSheet = remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
     val (isAnswerCorrect, setIsAnswerCorrect) = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        delay(1000)
+        isLoading = false
         wordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val loadedWords = mutableListOf<WordPair>()
@@ -88,7 +93,10 @@ fun WordpracticeUI(navController: NavController) {
             }
         })
     }
-
+    if (isLoading) {
+        LoadingScreen(loadingText = stringResource(R.string.loading_your_data))
+        return
+    }
     fun checkAnswer() {
         if (selectedOption != null && currentWord != null) {
             val correct = selectedOption == currentWord.russian
@@ -197,7 +205,7 @@ fun WordpracticeUI(navController: NavController) {
                     }
                 )
             } else {
-                val result =  if (isAnswerCorrect) {
+                val result = if (isAnswerCorrect) {
                     WordpractiseModel(
                         R.drawable.right,
                         R.drawable.checkmark,
@@ -220,7 +228,7 @@ fun WordpracticeUI(navController: NavController) {
                         showBottomSheet.value = false
                         goToNextQuestion()
                     },
-                    color = result.color ,
+                    color = result.color,
                     onExitClick = {
                         showBottomSheet.value = false
                         navController.popBackStack()
@@ -246,6 +254,7 @@ private fun generateOptions(
     val options = (wrongOptions + correctWord.russian).shuffled()
     setOptions(options)
 }
+
 private fun restartTest(
     allWords: List<WordPair>,
     setSelectedWords: (List<WordPair>) -> Unit,
