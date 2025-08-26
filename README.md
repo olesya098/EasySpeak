@@ -44,6 +44,6 @@ Manager – это мобильное приложение, которое по�
 ГАПОУ ПО ПКИПТ (ИТ-колледж)
 
 ## 📲 Скрины приложения
-<img src="![photo_2025-08-26_20-19-50](https://github.com/user-attachments/assets/bd85f432-d431-437b-af20-918624b74c00)" width="200"> <img src="![photo_2025-08-26_20-19-52](https://github.com/user-attachments/assets/b4a5f487-5b9b-4ef1-b764-a711cbce96d9)
-" width="200">
+<img src="![photo_2025-08-26_20-19-50](https://github.com/user-attachments/assets/bd85f432-d431-437b-af20-918624b74c00)" width="200"> 
+<img src="![photo_2025-08-26_20-19-52](https://github.com/user-attachments/assets/b4a5f487-5b9b-4ef1-b764-a711cbce96d9)" width="200">
 
